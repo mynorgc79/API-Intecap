@@ -163,13 +163,9 @@ if not DEBUG:
 
 
 STATICFILES_DIRS = [
-    # Directorio donde se encuentran tus archivos estáticos
-   
-    #os.path.join(BASE_DIR, 'aplicacion/static'),
-    #BASE_DIR / 'static'
-    os.path.join(BASE_DIR, 'usuario/static'),
+    #os.path.join(BASE_DIR, 'static'),
+    #os.path.join(BASE_DIR, 'usuario/static'),
 ]
-
 
 
 
