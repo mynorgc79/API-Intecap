@@ -38,17 +38,24 @@ class UserViewSet(viewsets.ModelViewSet):
 
 User = get_user_model()
 
+
 class UserRegisterView(APIView):
-    permission_classes = [AllowAny] 
+    permission_classes = [AllowAny]
+
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
+            # Verificar si el correo electrónico ya está en uso
+            email = serializer.validated_data.get('email')
+            if Usuario.objects.filter(email=email).exists():
+                return Response({'detail': 'El usuario ya existe con este correo electrónico.'}, status=status.HTTP_400_BAD_REQUEST)
+            
             user = serializer.save()
             user.set_password(request.data['password'])
             user.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+            return Response({'detail': 'Usuario registrado con éxito'}, status=status.HTTP_201_CREATED)
+        return Response({'detail': 'El usuario ya existe .'}, status=status.HTTP_400_BAD_REQUEST)
+        #return Response({'detail': 'Ocurrió un error en el registro', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class IsSuperUserOrCustomPermission(BasePermission):
     message = "No está autorizado para realizar esta acción."

@@ -34,7 +34,7 @@ class CustomUserManager(BaseUserManager):
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
     id_usuario = models.AutoField(primary_key=True)
-    email = models.CharField(max_length=255, unique=True)
+    email = models.EmailField(unique=True)
     nombre = models.CharField(max_length=255)
     apellido= models.CharField(max_length=255)
     dpi = models.CharField(max_length=13, unique=True)
