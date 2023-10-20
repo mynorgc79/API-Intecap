@@ -12,12 +12,7 @@ from usuario.models import Usuario
 from api.models import Estudiante, Favorito, Inscripcion,Notificacion
 from django.contrib.auth import get_user_model
 from api.models import Estudiante,CategoriaCurso, Curso
-
-
-
-
-
-
+from rest_framework.permissions import AllowAny
 
 
 # Create your views here.
@@ -44,6 +39,7 @@ class UserViewSet(viewsets.ModelViewSet):
 User = get_user_model()
 
 class UserRegisterView(APIView):
+    permission_classes = [AllowAny] 
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
