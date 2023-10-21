@@ -3,24 +3,7 @@ from usuario.models import Usuario
 
 # Create your models here.
 
-class Estudiante(models.Model):
-    id_estudiante = models.AutoField(primary_key=True)
-    dpi = models.CharField(max_length=14)
-    genero = models.CharField(max_length=10)
-    escolaridad = models.CharField(max_length=100)
-    telefono = models.IntegerField()
-    direccion = models.CharField(max_length=100)
-    etnia = models.CharField(max_length=100)
-    fecha_nacimiento = models.DateField()
-    edad = models.IntegerField()
-    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
-    class Meta:
-        verbose_name = 'Estudiante'
-        verbose_name_plural = 'Estudiantes'
-
-    def __str__(self):
-        return self.dpi
 
 #---------------CATEGORIA CURSO---------------
 class CategoriaCurso(models.Model):
@@ -32,7 +15,7 @@ class CategoriaCurso(models.Model):
         verbose_name = 'Categoría Curso'
         verbose_name_plural = 'Categorías Curso'
 
-    def __str__(self):
+    def _str_(self):
         return self.nombre_categoria
 
 #---------------CURSO---------------
@@ -54,11 +37,39 @@ class Curso(models.Model):
         verbose_name = 'Curso'
         verbose_name_plural = 'Cursos'
 
-    def __str__(self):
+    def _str_(self):
         return self.nombre_curso
 
 
 #---------------INSCRIPCIONES---------------
+
+
+
+#-------------NOTIFICACION---------------
+
+
+#----------------favoritos-------------
+
+
+class Estudiante(models.Model):
+    id_estudiante = models.AutoField(primary_key=True)
+    dpi = models.CharField(max_length=14)
+    genero = models.CharField(max_length=10)
+    escolaridad = models.CharField(max_length=100)
+    telefono = models.IntegerField()
+    direccion = models.CharField(max_length=100)
+    etnia = models.CharField(max_length=100)
+    fecha_nacimiento = models.DateField()
+    edad = models.IntegerField()
+    id_curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Estudiante'
+        verbose_name_plural = 'Estudiantes'
+
+    def _str_(self):
+        return self.dpi
+    
 class Inscripcion(models.Model):
     id_inscripcion = models.AutoField(primary_key=True)
     id_estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
@@ -69,11 +80,19 @@ class Inscripcion(models.Model):
         verbose_name = 'Inscripción'
         verbose_name_plural = 'Inscripciones'
 
-    def __str__(self):
+    def _str_(self):
         return f'{self.id_estudiante} - {self.id_curso}'
+        
+    
+class Favorito(models.Model):
+    id_favorito = models.AutoField(primary_key=True)
+    id_estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
+    id_curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = 'Favorito'
+        verbose_name_plural = 'Favoritos'
 
-#-------------NOTIFICACION---------------
 class Notificacion(models.Model):
     id_notificacion = models.AutoField(primary_key=True)
     id_inscripcion = models.ForeignKey(Inscripcion, on_delete=models.CASCADE)
@@ -84,16 +103,5 @@ class Notificacion(models.Model):
         verbose_name = 'Notificación'
         verbose_name_plural = 'Notificaciones'
 
-    def __str__(self):
+    def _str_(self):
         return self.mensaje
-
-#----------------favoritos-------------
-class Favorito(models.Model):
-    id_favorito = models.AutoField(primary_key=True)
-    id_estudiante = models.ForeignKey(Estudiante, on_delete=models.CASCADE)
-    id_curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Favorito'
-        verbose_name_plural = 'Favoritos'
-
