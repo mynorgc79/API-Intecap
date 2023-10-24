@@ -97,8 +97,8 @@ WSGI_APPLICATION = "sistema.wsgi.application"
 DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-       default='postgresql://postgres:12345@localhost:5431/intecap',
-       #default='postgres://intecap_user:XluwRXotmY8Cs3wvk8LFYvBwJ6tLT8kM@dpg-cko6dv7kc2qc73fdrt9g-a.oregon-postgres.render.com/intecap',
+       #default='postgresql://postgres:12345@localhost:5431/intecap',
+       default='postgres://intecap_user:XluwRXotmY8Cs3wvk8LFYvBwJ6tLT8kM@dpg-cko6dv7kc2qc73fdrt9g-a.oregon-postgres.render.com/intecap',
         conn_max_age=600
     )
 }

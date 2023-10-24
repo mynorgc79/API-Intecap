@@ -54,6 +54,7 @@ class Curso(models.Model):
 class Estudiante(models.Model):
     id_estudiante = models.AutoField(primary_key=True)
     dpi = models.CharField(max_length=14)
+    nombre = models.CharField(max_length=50)
     genero = models.CharField(max_length=10)
     escolaridad = models.CharField(max_length=100)
     telefono = models.IntegerField()
