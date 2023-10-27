@@ -6,13 +6,16 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.serializers import UserSerializer,CategoriaCursoSerializer, CursoSerializer, EstudianteSerializer,FavoritoSerializer, InscripcionSerializer, NotificacionSerializer
-
+from rest_framework.decorators import api_view
 
 from usuario.models import Usuario
 from api.models import Estudiante, Favorito, Inscripcion,Notificacion
 from django.contrib.auth import get_user_model
 from api.models import Estudiante,CategoriaCurso, Curso
 from rest_framework.permissions import AllowAny
+
+from rest_framework.mixins import ListModelMixin
+from rest_framework.viewsets import GenericViewSet
 
 
 # Create your views here.
@@ -104,3 +107,7 @@ class InscripcionViewSet(viewsets.ModelViewSet):
 class NotificacionViewSet(viewsets.ModelViewSet):
     queryset = Notificacion.objects.all()
     serializer_class = NotificacionSerializer
+
+
+
+

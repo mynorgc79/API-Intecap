@@ -21,6 +21,8 @@ router.register(r'inscripciones',InscripcionViewSet)
 router.register(r'notificaciones', NotificacionViewSet)
 
 
+
+
 route = ExtendedSimpleRouter()
 route.register(r'user', UserViewSet)
 

@@ -38,6 +38,13 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     nombre = models.CharField(max_length=255)
     apellido= models.CharField(max_length=255)
     dpi = models.CharField(max_length=13, unique=True)
+    genero = models.CharField(max_length=10)
+    escolaridad = models.CharField(max_length=100)
+    telefono = models.IntegerField()
+    direccion = models.CharField(max_length=100)
+    etnia = models.CharField(max_length=100)
+    fecha_nacimiento = models.DateField()
+    edad = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
