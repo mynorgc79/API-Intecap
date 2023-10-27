@@ -13,6 +13,7 @@ from api.models import Estudiante, Favorito, Inscripcion,Notificacion
 from django.contrib.auth import get_user_model
 from api.models import Estudiante,CategoriaCurso, Curso
 from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from rest_framework.mixins import ListModelMixin
 from rest_framework.viewsets import GenericViewSet
@@ -59,6 +60,38 @@ class UserRegisterView(APIView):
             return Response({'detail': 'Usuario registrado con éxito'}, status=status.HTTP_201_CREATED)
         return Response({'detail': 'El usuario ya existe .'}, status=status.HTTP_400_BAD_REQUEST)
         #return Response({'detail': 'Ocurrió un error en el registro', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)  # Obtener el token de acceso
+
+        if response.status_code == 200:
+            token = response.data['access']  # Obtener el token de acceso del JSON de respuesta
+            user = Usuario.objects.get(email=request.data['email'])  # Obtener el usuario por su email
+
+            # Obtener los campos del usuario que deseas incluir
+            user_data = {
+                'id_usuario': user.id_usuario,
+                'email': user.email,
+                'nombre': user.nombre,
+                'apellido': user.apellido,
+                'dpi': user.dpi,
+                'genero': user.genero,
+                'escolaridad': user.escolaridad,
+                'telefono': user.telefono,
+                'direccion': user.direccion,
+                'etnia': user.etnia,
+                'fecha_nacimiento': user.fecha_nacimiento,
+                'edad': user.edad,
+                'created_at': user.created_at,
+                'update_at': user.update_at,
+            }
+            response.data['user'] = user_data  # Agregar datos del usuario al JSON de respuesta
+
+        return response
+
+
 
 class IsSuperUserOrCustomPermission(BasePermission):
     message = "No está autorizado para realizar esta acción."
