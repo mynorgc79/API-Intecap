@@ -59,7 +59,7 @@ class UserRegisterView(APIView):
             user.save()
             return Response({'detail': 'Usuario registrado con éxito'}, status=status.HTTP_201_CREATED)
         return Response({'detail': 'El usuario ya existe .'}, status=status.HTTP_400_BAD_REQUEST)
-        #return Response({'detail': 'Ocurrió un error en el registro', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'detail': 'Ocurrió un error en el registro', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
