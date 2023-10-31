@@ -106,3 +106,10 @@ class Notificacion(models.Model):
 
     def _str_(self):
         return self.mensaje
+    
+
+class Notificacion_Curso(models.Model):
+    id_notificacion = models.AutoField(primary_key=True)
+    id_curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    mensaje = models.CharField(max_length=255)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
