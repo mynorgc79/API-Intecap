@@ -19,6 +19,7 @@ router.register(r'estudiantes', EstudianteViewSet)
 router.register(r'favoritos', FavoritoViewSet)
 router.register(r'inscripciones',InscripcionViewSet)
 router.register(r'notificaciones', NotificacionViewSet)
+router.register(r'notificacion_cursos', NotificacionCursoViewSet)
 
 
 

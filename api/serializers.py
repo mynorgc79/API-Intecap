@@ -1,7 +1,7 @@
 from usuario.models import Usuario
 from api.models import Estudiante,Favorito, Inscripcion, Notificacion
 
-from api.models import Estudiante,CategoriaCurso, Curso
+from api.models import CategoriaCurso, Curso, Notificacion_Curso
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
@@ -47,4 +47,9 @@ class InscripcionSerializer(serializers.ModelSerializer):
 class NotificacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notificacion
+        fields = '__all__'
+
+class NotificacionCursoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notificacion_Curso
         fields = '__all__'
